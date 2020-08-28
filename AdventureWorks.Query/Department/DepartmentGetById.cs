@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using Dapper;
 using MediatR;
 
-namespace AdventureWorks.Query.Employee
+namespace AdventureWorks.Query.Department
 {
-    public class EmployeeGetById
+    public class DepartmentGetById
     {
         public class Query : IRequest<QueryResult>
         {
@@ -16,12 +16,9 @@ namespace AdventureWorks.Query.Employee
 
         public class QueryResult
         {
-            public int BusinessEntityId { get; set; }
-            public string NationalIdNumber { get; set; }
-            public string LoginId { get; set; }
-            public string JobTitle { get; set; }
-            public DateTime BirthDate { get; set; }
-            public char Gender { get; set; }
+            public int DepartmentId { get; set; }
+            public string Name { get; set; }
+            public string GroupName { get; set; }
             public DateTime ModifiedDate { get; set; }
         }
 
@@ -37,10 +34,8 @@ namespace AdventureWorks.Query.Employee
                 return await DbConnection.QuerySingleOrDefaultAsync<QueryResult>(CreateSql, request, Transaction);
             }
 
-            private static string CreateSql =
-                "SELECT * FROM [HumanResources].[Employee] WHERE [BusinessEntityID] = @Id";
+            private static string CreateSql = 
+                "SELECT * FROM [HumanResources].[Department] WHERE [DepartmentId] = @Id";
         }
-
-        // TODO: Add validation
     }
 }
