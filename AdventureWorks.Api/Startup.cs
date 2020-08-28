@@ -1,7 +1,9 @@
 using System.Data;
 using AdventureWorks.Commands;
 using AdventureWorks.Commands.Department;
+using AdventureWorks.Query.Department;
 using AdventureWorks.Query.Employee;
+using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -25,6 +27,13 @@ namespace AdventureWorks.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllers()
+                .AddFluentValidation(fv =>
+                {
+                    fv.RegisterValidatorsFromAssemblyContaining<DepartmentCreate.CommandValidator>();
+                    fv.RegisterValidatorsFromAssemblyContaining<DepartmentGetById.QueryValidator>();
+                });
+
             services.AddScoped<IDbConnection>(provider => 
                 new SqlConnection(Configuration.GetConnectionString("AdventureWorksDb")));
 
@@ -34,10 +43,9 @@ namespace AdventureWorks.Api
             });
 
             services.AddMediatR(
-                typeof(EmployeeGetById.QueryHandler).Assembly,
-                typeof(DepartmentCreate.CommandHandler).Assembly);
-
-            services.AddControllers();
+                typeof(DepartmentGetById.QueryHandler).Assembly,
+                typeof(DepartmentCreate.CommandHandler).Assembly,
+                typeof(DepartmentGetById.QueryValidator).Assembly);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

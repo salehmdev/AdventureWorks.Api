@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using AdventureWorks.SqlData;
+using FluentValidation;
 using MediatR;
 
 namespace AdventureWorks.Commands.Department
@@ -38,6 +39,15 @@ namespace AdventureWorks.Commands.Department
             }
         }
 
-        // TODO: Add validation
+        public class CommandValidator : AbstractValidator<Command>
+        {
+            public CommandValidator()
+            {
+                RuleFor(x => x.Name)
+                    .NotEmpty();
+                RuleFor(x => x.GroupName)
+                    .NotEmpty();
+            }
+        }
     }
 }
