@@ -1,10 +1,12 @@
 using System.Data;
-using AdventureWorks.Commands.Employee;
+using AdventureWorks.Commands;
+using AdventureWorks.Commands.Department;
 using AdventureWorks.Query.Employee;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -26,9 +28,14 @@ namespace AdventureWorks.Api
             services.AddScoped<IDbConnection>(provider => 
                 new SqlConnection(Configuration.GetConnectionString("AdventureWorksDb")));
 
+            services.AddDbContext<AdventureWorksContext>((provider, options) =>
+            {
+                options.UseSqlServer((provider.GetService<IDbConnection>() as SqlConnection)!);
+            });
+
             services.AddMediatR(
                 typeof(EmployeeGetById.QueryHandler).Assembly,
-                typeof(EmployeeCreate.CommandHandler).Assembly);
+                typeof(DepartmentCreate.CommandHandler).Assembly);
 
             services.AddControllers();
         }
