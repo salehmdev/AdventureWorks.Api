@@ -1,15 +1,14 @@
 ﻿using System.Threading.Tasks;
 using AdventureWorks.Commands.Department;
-using AutoFixture;
 using FluentValidation;
 using NUnit.Framework;
 
 namespace AdventureWorks.Commands.Tests.Department
 {
+    [TestFixture]
     public class DepartmentCommandValidatorTests
     {
-        [TestFixture]
-        public class CreateCommandValidatorTests : BaseTest
+        public class Create : BaseTest
         {
             [Test]
             public async Task WhenCommandIsNotValid_ErrorIsThrown()

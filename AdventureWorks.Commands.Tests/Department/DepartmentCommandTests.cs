@@ -6,6 +6,7 @@ using NUnit.Framework;
 
 namespace AdventureWorks.Commands.Tests.Department
 {
+    [TestFixture]
     public class DepartmentCommandTests
     {
         [SetUp]
@@ -13,8 +14,7 @@ namespace AdventureWorks.Commands.Tests.Department
         {
         }
 
-        [TestFixture]
-        public class CreateCommandTests : BaseTest
+        public class Create : BaseTest
         {
             [Test]
             public async Task WhenCommandExecutes_ModelIsCreated()
