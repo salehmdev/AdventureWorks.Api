@@ -44,8 +44,8 @@ namespace AdventureWorks.Query.Department
             public QueryValidator()
             {
                 RuleFor(x => x.Id)
-                    .NotEqual(0)
-                    .WithMessage("Can't be 0.");
+                    .Must(value => value > 0)
+                    .WithMessage("Must be greater than 0.");
             }
         }
     }

@@ -1,7 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using AdventureWorks.Commands.Department;
 using AdventureWorks.Query.Department;
 using AdventureWorks.SqlData;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,10 +15,12 @@ namespace AdventureWorks.Api.Controllers
     public class DepartmentController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly DepartmentGetById.QueryValidator _departmentGetByIdQueryValidator;
 
-        public DepartmentController(IMediator mediator)
+        public DepartmentController(IMediator mediator, DepartmentGetById.QueryValidator departmentGetByIdQueryValidator)
         {
             _mediator = mediator;
+            _departmentGetByIdQueryValidator = departmentGetByIdQueryValidator;
         }
 
         [HttpPost]
@@ -25,12 +30,22 @@ namespace AdventureWorks.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<DepartmentGetById.QueryResult> GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            return await _mediator.Send(new DepartmentGetById.Query
+            var query = new DepartmentGetById.Query
             {
                 Id = id
-            });
+            };
+
+            var validationResult = await _departmentGetByIdQueryValidator.ValidateAsync(query);
+
+            if (!validationResult.IsValid)
+            {
+                validationResult.AddToModelState(ModelState, null);
+                return ValidationProblem(ModelState);
+            }
+
+            return Ok(await _mediator.Send(query));
         }
     }
 }

@@ -44,8 +44,7 @@ namespace AdventureWorks.Api
 
             services.AddMediatR(
                 typeof(DepartmentGetById.QueryHandler).Assembly,
-                typeof(DepartmentCreate.CommandHandler).Assembly,
-                typeof(DepartmentGetById.QueryValidator).Assembly);
+                typeof(DepartmentCreate.CommandHandler).Assembly);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
