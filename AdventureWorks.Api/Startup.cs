@@ -2,7 +2,6 @@ using System.Data;
 using AdventureWorks.Commands;
 using AdventureWorks.Commands.Department;
 using AdventureWorks.Query.Department;
-using AdventureWorks.Query.Employee;
 using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
