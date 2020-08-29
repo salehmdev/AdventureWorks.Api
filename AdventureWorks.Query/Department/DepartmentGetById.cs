@@ -44,8 +44,19 @@ namespace AdventureWorks.Query.Department
             public QueryValidator()
             {
                 RuleFor(x => x.Id)
+                    .Cascade(CascadeMode.Stop)
                     .Must(value => value > 0)
                     .WithMessage("Must be greater than 0.");
+            }
+        }
+
+        public class MustBeGreaterThanOneBusinessRule : AbstractValidator<Query>
+        {
+            public MustBeGreaterThanOneBusinessRule()
+            {
+                RuleFor(x => x.Id)
+                    .Must(value => value > 1)
+                    .WithMessage("Must be greater than 1.");
             }
         }
     }
