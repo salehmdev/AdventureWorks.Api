@@ -1,5 +1,4 @@
 using System.Data;
-using System.Reflection;
 using AdventureWorks.Commands;
 using AdventureWorks.Commands.Department;
 using AdventureWorks.Helpers;
