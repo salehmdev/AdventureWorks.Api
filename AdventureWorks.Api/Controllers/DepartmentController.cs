@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AdventureWorks.Commands.Department;
 using AdventureWorks.Query.Department;
 using AdventureWorks.SqlData;
 using FluentValidation;
-using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,12 +13,10 @@ namespace AdventureWorks.Api.Controllers
     public class DepartmentController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly IEnumerable<IValidator<DepartmentGetById.Query>> _departmentGetByIdValidators;
 
-        public DepartmentController(IMediator mediator, IEnumerable<IValidator<DepartmentGetById.Query>> departmentGetByIdValidators)
+        public DepartmentController(IMediator mediator)
         {
             _mediator = mediator;
-            _departmentGetByIdValidators = departmentGetByIdValidators;
         }
 
         [HttpPost]
@@ -37,18 +33,19 @@ namespace AdventureWorks.Api.Controllers
                 Id = id
             };
 
-            foreach (var validator in _departmentGetByIdValidators)
+            try
             {
-                var validationResult = await validator.ValidateAsync(query);
-
-                if (!validationResult.IsValid)
-                {
-                    validationResult.AddToModelState(ModelState, null);
-                    return ValidationProblem(ModelState);
-                }
+                return Ok(await _mediator.Send(query));
             }
+            catch (ValidationException e)
+            {
+                foreach (var validationFailure in e.Errors)
+                {
+                    ModelState.AddModelError(validationFailure.PropertyName, validationFailure.ErrorMessage);
+                }
 
-            return Ok(await _mediator.Send(query));
+                return ValidationProblem(ModelState);
+            }
         }
     }
 }

@@ -1,6 +1,7 @@
 using System.Data;
 using AdventureWorks.Commands;
 using AdventureWorks.Commands.Department;
+using AdventureWorks.Helpers;
 using AdventureWorks.Query.Department;
 using FluentValidation.AspNetCore;
 using MediatR;
@@ -44,6 +45,8 @@ namespace AdventureWorks.Api
             services.AddMediatR(
                 typeof(DepartmentGetById.QueryHandler).Assembly,
                 typeof(DepartmentCreate.CommandHandler).Assembly);
+
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(PipelineBehavior<,>));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
