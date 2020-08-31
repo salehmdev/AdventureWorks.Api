@@ -1,4 +1,5 @@
 using System.Data;
+using System.Reflection;
 using AdventureWorks.Commands;
 using AdventureWorks.Commands.Department;
 using AdventureWorks.Helpers;
@@ -32,6 +33,7 @@ namespace AdventureWorks.Api
                 {
                     fv.RegisterValidatorsFromAssemblyContaining<DepartmentCreate.CommandValidator>();
                     fv.RegisterValidatorsFromAssemblyContaining<DepartmentGetById.QueryValidator>();
+                    fv.AutomaticValidationEnabled = false;
                 });
 
             services.AddScoped<IDbConnection>(provider => 
