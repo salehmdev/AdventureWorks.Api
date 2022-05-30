@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace AdventureWorks.SqlData
+namespace AdventureWorks.Api.Data.SqlData
 {
     [Table("Department", Schema = "HumanResources")]
     public class DepartmentData

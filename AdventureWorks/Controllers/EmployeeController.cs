@@ -1,7 +1,7 @@
-﻿using System.Threading.Tasks;
-using AdventureWorks.Query.Employee;
+﻿using AdventureWorks.Api.Queries.Employee;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace AdventureWorks.Api.Controllers
 {
@@ -17,12 +17,19 @@ namespace AdventureWorks.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<EmployeeGetById.QueryResult> GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            return await _mediator.Send(new EmployeeGetById.Query
+            var result = await _mediator.Send(new EmployeeGetById.Query
             {
                 Id = id
             });
+
+            if (result == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(result);
         }
     }
 }

@@ -1,19 +1,24 @@
-using System.Data;
-using AdventureWorks.Commands;
-using AdventureWorks.Commands.Department;
-using AdventureWorks.Helpers;
-using AdventureWorks.Query.Department;
+using AdventureWorks.Api.Commands;
+using AdventureWorks.Api.Commands.Department;
+using AdventureWorks.Api.Filters;
+using AdventureWorks.Api.Middleware;
+using AdventureWorks.Api.Queries.Department;
 using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
+using System.Data;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
-namespace AdventureWorks.Api
+namespace AdventureWorks.Api.Service
 {
     public class Startup
     {
@@ -27,15 +32,26 @@ namespace AdventureWorks.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers()
-                .AddFluentValidation(fv =>
-                {
-                    fv.RegisterValidatorsFromAssemblyContaining<DepartmentCreate.CommandValidator>();
-                    fv.RegisterValidatorsFromAssemblyContaining<DepartmentGetById.QueryValidator>();
-                    fv.AutomaticValidationEnabled = false;
-                });
+            services.Configure<RouteOptions>(options =>
+            {
+                options.LowercaseUrls = true;
+                options.LowercaseQueryStrings = true;
+            })
+            .AddControllers(options =>
+            {
+                options.Filters.Add<ValidationFilter>();
+                options.EnableEndpointRouting = false;
+            })
+            .AddFluentValidation(fv =>
+            {
+                fv.RegisterValidatorsFromAssemblyContaining<ValidationFilter>();
+            })
+            .ConfigureApiBehaviorOptions(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;
+            });
 
-            services.AddScoped<IDbConnection>(provider => 
+            services.AddScoped<IDbConnection>(provider =>
                 new SqlConnection(Configuration.GetConnectionString("AdventureWorksDb")));
 
             services.AddDbContext<AdventureWorksContext>((provider, options) =>
@@ -47,7 +63,11 @@ namespace AdventureWorks.Api
                 typeof(DepartmentGetById.QueryHandler).Assembly,
                 typeof(DepartmentCreate.CommandHandler).Assembly);
 
-            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(PipelineBehavior<,>));
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "AdventureWorks.Api", Version = "v1" });
+                c.CustomSchemaIds(x => x.FullName);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,6 +76,8 @@ namespace AdventureWorks.Api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "AdventureWorks.Api v1"));
             }
 
             app.UseHttpsRedirection();
@@ -63,6 +85,8 @@ namespace AdventureWorks.Api
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseMiddleware<ExceptionMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {

@@ -1,7 +1,7 @@
-﻿using AdventureWorks.SqlData;
+﻿using AdventureWorks.Api.Data.SqlData;
 using Microsoft.EntityFrameworkCore;
 
-namespace AdventureWorks.Commands
+namespace AdventureWorks.Api.Commands
 {
     public class AdventureWorksContext : DbContext
     {

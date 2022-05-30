@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace AdventureWorks.Api
+namespace AdventureWorks.Api.Service
 {
     public class Program
     {

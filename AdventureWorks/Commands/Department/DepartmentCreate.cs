@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using AdventureWorks.SqlData;
+using AdventureWorks.Api.Data.SqlData;
 using FluentValidation;
+using FluentValidation.Results;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
-namespace AdventureWorks.Commands.Department
+namespace AdventureWorks.Api.Commands.Department
 {
     public class DepartmentCreate
     {
@@ -26,6 +29,12 @@ namespace AdventureWorks.Commands.Department
 
             public async Task<DepartmentData> Handle(Command request, CancellationToken cancellationToken)
             {
+                if (await _dbContext.Departments.FirstOrDefaultAsync(x => x.Name == request.Name, cancellationToken: cancellationToken) != null)
+                {
+                    var validationFailure = new ValidationFailure(nameof(request.Name), $"'{request.Name}' already exists.", request.Name);
+                    throw new ValidationException(new[] { validationFailure });
+                }
+
                 var department = (await _dbContext.Departments.AddAsync(new DepartmentData
                 {
                     Name = request.Name,
@@ -41,10 +50,11 @@ namespace AdventureWorks.Commands.Department
 
         public class CommandValidator : AbstractValidator<Command>
         {
-            public CommandValidator()
+            public CommandValidator(AdventureWorksContext dbContext)
             {
                 RuleFor(x => x.Name)
                     .NotEmpty();
+
                 RuleFor(x => x.GroupName)
                     .NotEmpty();
             }

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Dapper;
 using MediatR;
 
-namespace AdventureWorks.Query.Employee
+namespace AdventureWorks.Api.Queries.Employee
 {
     public class EmployeeGetById
     {
@@ -27,7 +27,7 @@ namespace AdventureWorks.Query.Employee
 
         public class QueryHandler : BaseQuery, IRequestHandler<Query, QueryResult>
         {
-            public QueryHandler(IDbConnection dbConnection, IDbTransaction transaction = null) 
+            public QueryHandler(IDbConnection dbConnection, IDbTransaction transaction = null)
                 : base(dbConnection, transaction)
             {
             }
@@ -41,6 +41,6 @@ namespace AdventureWorks.Query.Employee
                 "SELECT * FROM [HumanResources].[Employee] WHERE [BusinessEntityID] = @Id";
         }
 
-        // TODO: Add validation
+        // TODO: Add sample validation
     }
 }

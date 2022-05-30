@@ -1,17 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30204.135
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32516.85
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventureWorks.Api", "AdventureWorks.Api\AdventureWorks.Api.csproj", "{A4243C5C-428D-4587-84BF-8E98E80833ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventureWorks.Api.Service", "AdventureWorks.Api\AdventureWorks.Api.Service.csproj", "{A4243C5C-428D-4587-84BF-8E98E80833ED}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventureWorks.Query", "AdventureWorks.Query\AdventureWorks.Query.csproj", "{9CF49901-605D-490A-B814-9CF3D5133498}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventureWorks.Api", "AdventureWorks\AdventureWorks.Api.csproj", "{3202A9B0-50A2-48A7-9AD5-C927ACE4CC33}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventureWorks.Commands", "AdventureWorks.Commands\AdventureWorks.Commands.csproj", "{706EC827-F0BA-4403-AE7F-CEC4A53C0CDF}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventureWorks", "AdventureWorks\AdventureWorks.csproj", "{3202A9B0-50A2-48A7-9AD5-C927ACE4CC33}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventureWorks.Commands.Tests", "AdventureWorks.Commands.Tests\AdventureWorks.Commands.Tests.csproj", "{900EECB0-D1F8-49C8-9370-B58E890117F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventureWorks.Api.Commands.Tests", "AdventureWorks.Commands.Tests\AdventureWorks.Api.Commands.Tests.csproj", "{900EECB0-D1F8-49C8-9370-B58E890117F1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,14 +19,6 @@ Global
 		{A4243C5C-428D-4587-84BF-8E98E80833ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A4243C5C-428D-4587-84BF-8E98E80833ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A4243C5C-428D-4587-84BF-8E98E80833ED}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9CF49901-605D-490A-B814-9CF3D5133498}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9CF49901-605D-490A-B814-9CF3D5133498}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9CF49901-605D-490A-B814-9CF3D5133498}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9CF49901-605D-490A-B814-9CF3D5133498}.Release|Any CPU.Build.0 = Release|Any CPU
-		{706EC827-F0BA-4403-AE7F-CEC4A53C0CDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{706EC827-F0BA-4403-AE7F-CEC4A53C0CDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{706EC827-F0BA-4403-AE7F-CEC4A53C0CDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{706EC827-F0BA-4403-AE7F-CEC4A53C0CDF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3202A9B0-50A2-48A7-9AD5-C927ACE4CC33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3202A9B0-50A2-48A7-9AD5-C927ACE4CC33}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3202A9B0-50A2-48A7-9AD5-C927ACE4CC33}.Release|Any CPU.ActiveCfg = Release|Any CPU

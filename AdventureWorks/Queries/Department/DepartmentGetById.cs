@@ -6,7 +6,7 @@ using Dapper;
 using FluentValidation;
 using MediatR;
 
-namespace AdventureWorks.Query.Department
+namespace AdventureWorks.Api.Queries.Department
 {
     public class DepartmentGetById
     {
@@ -25,7 +25,7 @@ namespace AdventureWorks.Query.Department
 
         public class QueryHandler : BaseQuery, IRequestHandler<Query, QueryResult>
         {
-            public QueryHandler(IDbConnection dbConnection, IDbTransaction transaction = null) 
+            public QueryHandler(IDbConnection dbConnection, IDbTransaction transaction = null)
                 : base(dbConnection, transaction)
             {
             }
@@ -35,7 +35,7 @@ namespace AdventureWorks.Query.Department
                 return await DbConnection.QuerySingleOrDefaultAsync<QueryResult>(CreateSql, request, Transaction);
             }
 
-            private static string CreateSql = 
+            private static string CreateSql =
                 "SELECT * FROM [HumanResources].[Department] WHERE [DepartmentId] = @Id";
         }
 
@@ -44,16 +44,9 @@ namespace AdventureWorks.Query.Department
             public QueryValidator()
             {
                 RuleFor(x => x.Id)
-                    .Cascade(CascadeMode.Stop)
                     .Must(value => value > 0)
                     .WithMessage("Must be greater than 0.");
-            }
-        }
 
-        public class MustBeGreaterThanOneBusinessRule : AbstractValidator<Query>
-        {
-            public MustBeGreaterThanOneBusinessRule()
-            {
                 RuleFor(x => x.Id)
                     .Must(value => value > 1)
                     .WithMessage("Must be greater than 1.");
