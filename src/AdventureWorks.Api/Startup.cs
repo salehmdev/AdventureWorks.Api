@@ -15,8 +15,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System.Data;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 
 namespace AdventureWorks.Api.Service
 {
