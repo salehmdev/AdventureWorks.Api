@@ -1,12 +1,11 @@
-﻿using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using AdventureWorks.Api.Data.SqlData;
+﻿using AdventureWorks.Api.Data.SqlData;
 using FluentValidation;
 using FluentValidation.Results;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace AdventureWorks.Api.Commands.Department
 {
@@ -29,6 +28,7 @@ namespace AdventureWorks.Api.Commands.Department
 
             public async Task<DepartmentData> Handle(Command request, CancellationToken cancellationToken)
             {
+                // Custom validation not handled within Fluent Validation validator
                 if (await _dbContext.Departments.FirstOrDefaultAsync(x => x.Name == request.Name, cancellationToken: cancellationToken) != null)
                 {
                     var validationFailure = new ValidationFailure(nameof(request.Name), $"'{request.Name}' already exists.", request.Name);
@@ -50,7 +50,7 @@ namespace AdventureWorks.Api.Commands.Department
 
         public class CommandValidator : AbstractValidator<Command>
         {
-            public CommandValidator(AdventureWorksContext dbContext)
+            public CommandValidator()
             {
                 RuleFor(x => x.Name)
                     .NotEmpty();

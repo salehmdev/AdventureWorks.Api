@@ -2,7 +2,6 @@
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using System;
-using System.Collections.Generic;
 using System.Net.Mime;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -32,34 +31,44 @@ namespace AdventureWorks.Api.Middleware
 
         private async Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
-            context.Response.ContentType = MediaTypeNames.Application.Json; ; 
+            var errorResponse = new ErrorResponse();
+            context.Response.ContentType = MediaTypeNames.Application.Json;
             var message = string.Empty;
 
             switch (exception.GetType().Name)
             {
                 case nameof(ValidationException):
-                    context.Response.StatusCode = StatusCodes.Status400BadRequest;
-                    var validationException = (ValidationException)exception;
-                    var errorResponse = new ErrorResponse();
-                    foreach (var error in validationException.Errors)
                     {
-                        errorResponse.Errors.Add(new ErrorModel
+                        // Consistent validation error response
+                        context.Response.StatusCode = StatusCodes.Status400BadRequest;
+                        var validationException = (ValidationException)exception;
+                        foreach (var error in validationException.Errors)
                         {
-                            FieldName = error.PropertyName,
-                            Message = error.ErrorMessage
-                        });
+                            errorResponse.Errors.Add(new ErrorModel
+                            {
+                                FieldName = error.PropertyName,
+                                Message = error.ErrorMessage
+                            });
+                        }
+                        break;
                     }
-                    message = JsonSerializer.Serialize(errorResponse, new JsonSerializerOptions
-                    {
-                        PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-                    });
-                    break;
 
                 default:
-                    context.Response.StatusCode = StatusCodes.Status500InternalServerError;
-                    message = "Internal Server Error.";
-                    break;
+                    {
+                        context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+                        errorResponse.Errors.Add(new ErrorModel
+                        {
+                            FieldName = "$",
+                            Message = exception.Message
+                        });
+                        break;
+                    }
             }
+
+            message = JsonSerializer.Serialize(errorResponse, new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            });
 
             await context.Response.WriteAsync(message);
         }

@@ -1,11 +1,10 @@
-﻿using System.Threading.Tasks;
-using AdventureWorks.Api.Commands.Department;
-using AdventureWorks.Api.Data.SqlData;
+﻿using AdventureWorks.Api.Commands.Department;
 using AdventureWorks.Api.Models;
 using AdventureWorks.Api.Queries.Department;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace AdventureWorks.Api.Controllers
 {
@@ -21,7 +20,7 @@ namespace AdventureWorks.Api.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(DepartmentData), StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Create([FromBody] DepartmentCreate.Command command)
         {
