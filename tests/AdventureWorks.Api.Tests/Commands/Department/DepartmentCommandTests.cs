@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using AdventureWorks.Api.Commands.Department;
+using AdventureWorks.Api.Tests.Commands;
 using AutoFixture;
 using NUnit.Framework;
 
@@ -14,7 +15,7 @@ namespace AdventureWorks.Api.Tests.Department
         {
         }
 
-        public class Create : BaseTest
+        public class Create : BaseCommandTest
         {
             [Test]
             public async Task WhenCommandExecutes_ModelIsCreated()

@@ -5,7 +5,7 @@ VisualStudioVersion = 17.2.32516.85
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventureWorks.Api", "src\AdventureWorks.Api\AdventureWorks.Api.csproj", "{B1F48FB0-1848-4D91-8B75-E7676CA7730D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventureWorks.Api.Tests", "tests\AdventureWorks.Commands.Tests\AdventureWorks.Api.Tests.csproj", "{C0E47CAF-FA6A-4068-B35E-279312A566EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventureWorks.Api.Tests", "tests\AdventureWorks.Api.Tests\AdventureWorks.Api.Tests.csproj", "{C0E47CAF-FA6A-4068-B35E-279312A566EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

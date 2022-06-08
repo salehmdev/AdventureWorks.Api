@@ -4,14 +4,14 @@ using AutoFixture;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 
-namespace AdventureWorks.Api.Tests
+namespace AdventureWorks.Api.Tests.Commands
 {
-    public class BaseTest : IDisposable
+    public class BaseCommandTest : IDisposable
     {
         protected AdventureWorksContext DbContext;
         protected Fixture Fixture;
 
-        public BaseTest()
+        public BaseCommandTest()
         {
             Fixture = new Fixture();
             Fixture.Behaviors.Add(new OmitOnRecursionBehavior());

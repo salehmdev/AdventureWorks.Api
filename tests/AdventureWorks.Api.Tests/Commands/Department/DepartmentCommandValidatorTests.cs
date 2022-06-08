@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using AdventureWorks.Api.Commands.Department;
+using AdventureWorks.Api.Tests.Commands;
 using FluentValidation;
 using NUnit.Framework;
 
@@ -8,7 +9,7 @@ namespace AdventureWorks.Api.Tests.Department
     [TestFixture]
     public class DepartmentCommandValidatorTests
     {
-        public class Create : BaseTest
+        public class Create : BaseCommandTest
         {
             [Test]
             public async Task WhenCommandIsNotValid_ErrorIsThrown()
