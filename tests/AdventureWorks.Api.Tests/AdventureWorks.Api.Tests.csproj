@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AdventureWorks.Commands\AdventureWorks.Api.Commands.csproj" />
+    <ProjectReference Include="..\..\src\AdventureWorks.Api\AdventureWorks.Api.csproj" />
   </ItemGroup>
 
 </Project>

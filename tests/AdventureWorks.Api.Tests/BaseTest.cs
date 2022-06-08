@@ -1,9 +1,10 @@
 ﻿using System;
+using AdventureWorks.Api.Commands;
 using AutoFixture;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 
-namespace AdventureWorks.Commands.Tests
+namespace AdventureWorks.Api.Tests
 {
     public class BaseTest : IDisposable
     {

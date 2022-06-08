@@ -5,6 +5,8 @@ VisualStudioVersion = 17.2.32516.85
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventureWorks.Api", "src\AdventureWorks.Api\AdventureWorks.Api.csproj", "{B1F48FB0-1848-4D91-8B75-E7676CA7730D}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventureWorks.Api.Tests", "tests\AdventureWorks.Commands.Tests\AdventureWorks.Api.Tests.csproj", "{C0E47CAF-FA6A-4068-B35E-279312A566EB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{B1F48FB0-1848-4D91-8B75-E7676CA7730D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B1F48FB0-1848-4D91-8B75-E7676CA7730D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B1F48FB0-1848-4D91-8B75-E7676CA7730D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0E47CAF-FA6A-4068-B35E-279312A566EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0E47CAF-FA6A-4068-B35E-279312A566EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0E47CAF-FA6A-4068-B35E-279312A566EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0E47CAF-FA6A-4068-B35E-279312A566EB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

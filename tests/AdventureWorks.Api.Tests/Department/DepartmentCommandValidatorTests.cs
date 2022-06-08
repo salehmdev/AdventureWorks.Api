@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
-using AdventureWorks.Commands.Department;
+using AdventureWorks.Api.Commands.Department;
 using FluentValidation;
 using NUnit.Framework;
 
-namespace AdventureWorks.Commands.Tests.Department
+namespace AdventureWorks.Api.Tests.Department
 {
     [TestFixture]
     public class DepartmentCommandValidatorTests
