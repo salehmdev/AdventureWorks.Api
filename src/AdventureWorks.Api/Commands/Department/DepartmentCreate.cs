@@ -29,11 +29,11 @@ namespace AdventureWorks.Api.Commands.Department
             public async Task<DepartmentData> Handle(Command request, CancellationToken cancellationToken)
             {
                 // Custom validation not handled within Fluent Validation validator
-                if (await _dbContext.Departments.FirstOrDefaultAsync(x => x.Name == request.Name, cancellationToken: cancellationToken) != null)
-                {
-                    var validationFailure = new ValidationFailure(nameof(request.Name), $"'{request.Name}' already exists.", request.Name);
-                    throw new ValidationException(new[] { validationFailure });
-                }
+                //if (await _dbContext.Departments.FirstOrDefaultAsync(x => x.Name == request.Name, cancellationToken: cancellationToken) != null)
+                //{
+                //    var validationFailure = new ValidationFailure(nameof(request.Name), $"'{request.Name}' already exists.", request.Name);
+                //    throw new ValidationException(new[] { validationFailure });
+                //}
 
                 var department = (await _dbContext.Departments.AddAsync(new DepartmentData
                 {
