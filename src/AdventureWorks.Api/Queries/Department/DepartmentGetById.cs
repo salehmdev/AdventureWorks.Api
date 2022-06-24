@@ -3,7 +3,6 @@ using System.Data;
 using System.Threading;
 using System.Threading.Tasks;
 using Dapper;
-using FluentValidation;
 using MediatR;
 
 namespace AdventureWorks.Api.Queries.Department
@@ -37,20 +36,6 @@ namespace AdventureWorks.Api.Queries.Department
 
             private static string CreateSql =
                 "SELECT * FROM [HumanResources].[Department] WHERE [DepartmentId] = @Id";
-        }
-
-        public class QueryValidator : AbstractValidator<Query>
-        {
-            public QueryValidator()
-            {
-                RuleFor(x => x.Id)
-                    .Must(value => value > 0)
-                    .WithMessage("Must be greater than 0.");
-
-                RuleFor(x => x.Id)
-                    .Must(value => value > 1)
-                    .WithMessage("Must be greater than 1.");
-            }
         }
     }
 }
